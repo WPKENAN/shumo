@@ -31,6 +31,8 @@ if __name__=="__main__":
     data=readTxt(path)
 
     month=data[304:-3,[0]]+0.01*data[304:-3,[1]]
+
+
     # print(month)
     co2=data[304:-3,[4]]
     co2=pd.DataFrame(co2)
@@ -53,11 +55,16 @@ if __name__=="__main__":
     data = readTxt(path)
     TAVG = data[2802:-3, 2]
     TAVG = pd.DataFrame(TAVG)
-    print(TAVG)
-    print(TAVG.shape)
+    # print(TAVG)
+    # print(TAVG.shape)
+
+    path = "./data/Complete_TMIN_complete.txt"
+    data = readTxt(path)
+    TMIN = data[1602:-3, 2]
+    TMIN = pd.DataFrame(TMIN)
 
 
-    data=pd.concat([co2,ch4,TMAX,TAVG],axis=1)
+    data=pd.concat([co2,ch4,TMAX,TAVG,TMIN],axis=1)
     data=data.values
     print(data.shape)
 
@@ -66,8 +73,9 @@ if __name__=="__main__":
 
 
 
+
     df=pd.DataFrame(data)
-    df.columns=['Date','CO2','CH4','TMAX','TAVG']
+    df.columns=['Date','CO2','CH4','TMAX','TAVG','TMIN']
     df.to_csv("data.csv",sep=',',index=None)
 
     from sklearn.preprocessing import LabelEncoder
