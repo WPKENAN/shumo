@@ -46,7 +46,7 @@ if __name__=="__main__":
     Station_ID=readStation("./Station Inventory EN.csv")
 
     cores=multiprocessing.cpu_count()
-    pool=multiprocessing.Pool(processes=cores)
+    pool=multiprocessing.Pool(processes=1)
     # for i in range(1,13):
     # if os.path.exists(targetFolder)
     #     ulr="http://climate.weather.gc.ca/climate_data/bulk_data_e.html?format=csv&stationID={}&Year=2008&Month=1&Day=14&timeframe=1&submit=Download+Data".format(i)
@@ -66,7 +66,9 @@ if __name__=="__main__":
         if math.isnan(First_Year) or math.isnan(Last_Year):
             continue
         for year in range(int(First_Year),int(Last_Year+1)):
-            pool.apply_async(f, (targetFolder,key,year, ))
+            #pool.apply_async(f, (targetFolder,key,year, ))
+            f(targetFolder,key,year)
+
     pool.close()
     pool.join()
 
