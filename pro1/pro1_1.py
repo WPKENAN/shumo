@@ -185,10 +185,12 @@ def hc(df,Lat_Longs):
     plt.savefig("层次聚类热力图.jpg",dpi=240)
     plt.close()
 
-    cur_clusters = fcluster(Z, 5, criterion='maxclust')
+    cur_clusters = fcluster(Z, 20, criterion='maxclust')
     print(cur_clusters)
     plt.scatter(Lat_Longs[:,0],Lat_Longs[:,1],c=cur_clusters)
-    plt.show()
+    plt.savefig('聚类结果经纬图-20类.png')
+    # plt.show()
+    plt.close()
 
 
 
@@ -292,7 +294,7 @@ if __name__=="__main__":
     newdata=my(newdata,Lat_Longs)
     hc(newdata, Lat_Longs)
 
-    dad
+    exit(0)
     print(newdata)
     newdata=pd.DataFrame(Lat_Longs)
     newdata.index=Station_IDs
