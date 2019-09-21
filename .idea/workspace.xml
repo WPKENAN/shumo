@@ -4,6 +4,7 @@
     <list default="true" id="9be9f559-420f-4fa4-aef6-79600476d9ad" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/pro2/data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/pro2/data.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pro2/dataprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/pro2/dataprocessing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pro2/未命名.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/pro2/未命名.ipynb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,8 +29,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pro2/dataprocessing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="74" lean-forward="true" selection-start-line="74" selection-end-line="74" />
+            <state relative-caret-position="239">
+              <caret line="64" column="17" selection-start-line="64" selection-start-column="17" selection-end-line="64" selection-end-column="17" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -38,45 +39,9 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pro2/data/Complete_TMIN_complete.txt">
+        <entry file="file://$PROJECT_DIR$/pro2/data/northern-hemisphere-TAVG-Trend.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10">
-              <caret line="13" column="41" lean-forward="true" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pro2/data/co2_mm_mlo.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-11708" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pro2/data/Complete_TAVG_complete.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42415">
-              <caret line="2837" column="29" lean-forward="true" selection-start-line="2837" selection-start-column="11" selection-end-line="2837" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pro2/data/Complete_TMAX_complete.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24796">
-              <caret line="1667" column="17" selection-start-line="1667" selection-start-column="17" selection-end-line="1667" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pro2/data/ch4_mm_gl.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-6473">
-              <caret line="33" column="39" lean-forward="true" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
-            </state>
+            <state relative-caret-position="-766" />
           </provider>
         </entry>
       </file>
@@ -262,13 +227,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pro2/data/Complete_TAVG_complete.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42415">
-          <caret line="2837" column="29" lean-forward="true" selection-start-line="2837" selection-start-column="11" selection-end-line="2837" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pro2/data/co2_mm_mlo.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-11708" />
@@ -281,10 +239,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pro2/data/Complete_TAVG_complete.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42415">
+          <caret line="2837" column="29" lean-forward="true" selection-start-line="2837" selection-start-column="11" selection-end-line="2837" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pro2/data/northern-hemisphere-TAVG-Trend.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-766" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pro2/data/ch4_gr_gl.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-703" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pro2/data/co2_gr_mlo.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-868" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pro2/dataprocessing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="74" lean-forward="true" selection-start-line="74" selection-end-line="74" />
+        <state relative-caret-position="239">
+          <caret line="64" column="17" selection-start-line="64" selection-start-column="17" selection-end-line="64" selection-end-column="17" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>

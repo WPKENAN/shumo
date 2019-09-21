@@ -60,7 +60,8 @@ if __name__=="__main__":
 
     path = "./data/Complete_TMIN_complete.txt"
     data = readTxt(path)
-    TMIN = data[1602:-3, 2]
+    TMIN = data[1602:-1, 2]
+    # print(TMIN)
     TMIN = pd.DataFrame(TMIN)
 
 
