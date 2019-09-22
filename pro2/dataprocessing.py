@@ -84,7 +84,7 @@ if __name__=="__main__":
     plt.title("1983.7-2019.5陆地海洋温度变化图")
     plt.ylabel("°C")
     plt.xlabel("time")
-    plt.savefig("1983.7-2019.5陆地海洋温度变化图.png", dpi=200)
+    plt.savefig("1983.7-2019.5 land_ocean.png", dpi=200)
 
     # plt.show()
 
