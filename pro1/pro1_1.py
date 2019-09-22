@@ -12,11 +12,13 @@ from scipy import cluster
 import matplotlib.pyplot as plt
 from sklearn import decomposition as skldec #用于主成分分析降维的包
 
+start=1910
+end=1930
+
+
 def readCsv(path):
     data=pd.read_csv(path,header=22)
-
     # print(data[['Date/Time','Max Temp (°C)','Min Temp (°C)','Mean Temp (°C)','Total Rain (mm)','Total Snow (cm)','Total Precip (mm)','Snow on Grnd (cm)']])
-
     # return data[['Date/Time','Max Temp (°C)','Min Temp (°C)','Mean Temp (°C)','Total Rain (mm)','Total Snow (cm)','Total Precip (mm)','Snow on Grnd (cm)']]
     return data[['Mean Temp (°C)']]
     # return
@@ -62,36 +64,40 @@ def clearData(Station_IDs,start,end,folder):
         for j in range(start,end):
             if i == 0 and j==start:
                 data=readCsv(os.path.join(folder, str(Station_IDs[i]), "{}_{}.csv".format(Station_IDs[i], j)))
-                newColumns=[]
-                for c in data.columns:
-                    # newColumns.append(str(Station_IDs[i])+"_"+c)
-                    newColumns.append("_"+str(Station_IDs[i]) + "_" + c)
-                data.columns=newColumns
+                # newColumns=[]
+                # for c in data.columns:
+                #     newColumns.append("_"+str(Station_IDs[i]) + "_" + c)
+                # data.columns=newColumns
+                data.columns = [str(Station_IDs[i])]
+
                 continue
             if i==0 and j!=start:
                 tmp = readCsv(os.path.join(folder, str(Station_IDs[i]), "{}_{}.csv".format(Station_IDs[i], j)))
 
-                newColumns = []
-                for c in tmp.columns:
-                    newColumns.append("_"+str(Station_IDs[i]) + "_" + c)
-                tmp.columns = newColumns
+                # newColumns = []
+                # for c in tmp.columns:
+                #     newColumns.append("_"+str(Station_IDs[i]) + "_" + c)
+                # tmp.columns = newColumns
+                tmp.columns = [str(Station_IDs[i])]
 
                 data = pd.concat([data, tmp], axis=0)
                 continue
 
             if j==start:
                 tmp1 = readCsv(os.path.join(folder, str(Station_IDs[i]), "{}_{}.csv".format(Station_IDs[i], start)))
-                newColumns = []
-                for c in tmp1.columns:
-                    newColumns.append("_"+str(Station_IDs[i]) + "_" + c)
-                tmp1.columns = newColumns
+                # newColumns = []
+                # for c in tmp1.columns:
+                #     newColumns.append("_"+str(Station_IDs[i]) + "_" + c)
+                # tmp1.columns = newColumns
+                tmp1.columns = [str(Station_IDs[i])]
+
             else:
                 tmp2=readCsv(os.path.join(folder,str(Station_IDs[i]),"{}_{}.csv".format(Station_IDs[i],j)))
 
-                newColumns = []
-                for c in tmp2.columns:
-                    newColumns.append("_"+str(Station_IDs[i]) + "_" + c)
-                tmp2.columns = newColumns
+                # newColumns = []
+                # for c in tmp2.columns:
+                #     newColumns.append("_"+str(Station_IDs[i]) + "_" + c)
+                tmp2.columns = [str(Station_IDs[i])]
 
                 tmp1=pd.concat([tmp1,tmp2],axis=0)
 
@@ -185,7 +191,11 @@ def hc(df,Lat_Longs):
     plt.savefig("层次聚类热力图.jpg",dpi=240)
     plt.close()
 
-    cur_clusters = fcluster(Z, 20, criterion='maxclust')
+
+    cur_clusters = fcluster(Z, 6, criterion='maxclust')
+    print(len(Lat_Longs))
+    print(len(cur_clusters))
+
     print(cur_clusters)
     plt.scatter(Lat_Longs[:,0],Lat_Longs[:,1],c=cur_clusters)
     plt.savefig('聚类结果经纬图-20类.png')
@@ -206,7 +216,7 @@ def my(df,Lat_Longs):
     # print(df.columns[0])
     # da
     for i in range(len(df.columns)):
-        for j in range(len(df.columns)):
+        for j in range(i,len(df.columns)):
             print(i,j)
             # count=[]
             count=pd.concat([df[df.columns[i]],df[df.columns[j]]],axis=1)
@@ -221,9 +231,11 @@ def my(df,Lat_Longs):
     #                 count.append([df[i][k],df[j][k]])
     #         # print(len(count))
     #         count=np.array(count)
+            std=0
             std=np.sqrt(np.sum((count[:,0]-count[:,1])**2)/len(count))
     #         # print(std)
             dis[i,j]=std
+            dis[j, i] = std
     print(dis)
 
     dis=pd.DataFrame(dis)
@@ -244,8 +256,7 @@ if __name__=="__main__":
 
     # folder="D:\github\Data\shumo\data\data\\day"
     folder = "D:\github\Data\shumo\data\\day"
-    start=1978
-    end=2018
+
 
     Station_IDs=getStationId(folder,start,end)
     Station_IDs.sort()
@@ -261,17 +272,19 @@ if __name__=="__main__":
     for id in Station_IDs:
         flag_=1
         for c in newdata.columns:
-            if "_"+str(id)+"_" in c:
+            if id == int(c):
                 flag_=0
                 break;
         if flag_:
             tmp.remove(id)
 
     Station_IDs=copy.deepcopy(tmp)
+    print(Station_IDs)
     # for i in range(92):
     #     print(Station_IDs[i],newdata.columns[i])
     Lat_Longs=[]
     for id in Station_IDs:
+        print(id)
         csvlist = os.listdir(os.path.join(folder, str(id)));
         if len(csvlist) > 0 and ".tmp" not in csvlist[0]:
             if id == '1590':
@@ -282,6 +295,7 @@ if __name__=="__main__":
     # df.to_csv("Lat_Long.csv", sep=',', index=False, header=False)
 
     print(Lat_Longs)
+    # ewq
     Lat_Longs = np.array(Lat_Longs)
 
 

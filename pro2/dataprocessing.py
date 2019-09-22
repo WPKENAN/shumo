@@ -2,7 +2,9 @@ import os
 import shutil
 import pandas as pd
 import numpy as np
-
+import matplotlib as mpl
+mpl.rcParams['font.sans-serif'] = ['FangSong']  # 指定默认字体
+mpl.rcParams['axes.unicode_minus'] = False  # 解决保存图像是负号'-'显示为方块的问题
 
 def readTxt(path):
 
@@ -64,8 +66,32 @@ if __name__=="__main__":
     # print(TMIN)
     TMIN = pd.DataFrame(TMIN)
 
+    path = "./data/Land_and_Ocean_complete.txt"
+    data = readTxt(path)
+    TOCEAN = data[1602:-3,2]
+    TOCEAN=pd.DataFrame(TOCEAN)
+    print(TAVG.values.shape)
 
-    data=pd.concat([co2,ch4,TMAX,TAVG,TMIN],axis=1)
+    import matplotlib.pyplot as plt
+
+    fig = plt.figure(figsize=(8, 4))
+    plt.plot(TOCEAN,label='陆地和海洋平均')
+    plt.plot((TOCEAN.values-0.29*TAVG.values)/0.69,label='海洋温度')
+    plt.plot(TAVG,label='陆地温度')
+
+    print(TOCEAN)
+    plt.legend()
+    plt.title("1983.7-2019.5陆地海洋温度变化图")
+    plt.ylabel("°C")
+    plt.xlabel("time")
+    plt.savefig("1983.7-2019.5陆地海洋温度变化图.png", dpi=200)
+
+    # plt.show()
+
+    print(TOCEAN.shape)
+
+
+    data=pd.concat([co2,ch4,TMAX,TAVG,TMIN,TOCEAN],axis=1)
     data=data.values
     print(data.shape)
 
@@ -76,7 +102,7 @@ if __name__=="__main__":
 
 
     df=pd.DataFrame(data)
-    df.columns=['Date','CO2','CH4','TMAX','TAVG','TMIN']
+    df.columns=['Date','CO2','CH4','TMAX','TAVG','TMIN','TOCEAN']
     df.to_csv("data.csv",sep=',',index=None)
 
     from sklearn.preprocessing import LabelEncoder
