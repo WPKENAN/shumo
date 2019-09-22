@@ -5,10 +5,11 @@ import numpy as np
 import matplotlib as mpl
 mpl.rcParams['font.sans-serif'] = ['FangSong']  # 指定默认字体
 mpl.rcParams['axes.unicode_minus'] = False  # 解决保存图像是负号'-'显示为方块的问题
-
+import copy
 def readTxt(path):
 
     lines=open(path).readlines()
+    # print(lines)
     data=[]
     for line in lines:
         if line.startswith('#') or line.startswith("%"):
@@ -26,7 +27,49 @@ def readTxt(path):
     # print(df.shape)
     return np.array(data)
 
+def readPaifang():
+    m={}
+    for i in range(12):
+        path="SUMMARY{:02}.MONTHLY.MASS.DAT.txt".format(i+1)
+        path=os.path.join(".\data",path)
+        # print(path)
+        lines = open(path).readlines()
+        # print(lines)
+        data = []
+        lines=lines[5:]
+        for line in lines:
+            if line.startswith('#') or line.startswith("%"):
+                continue
+            line = line.strip()
+            # print(line)
+            # data.append(line.split())
+            if len(line.split()) == 0:
+                continue
+            a_float_m = map(float, line.split())
+            data.append(list(a_float_m))
 
+        m[i+1]=copy.deepcopy(data)
+        # print(len(data))
+    keys=list(m.keys())
+    keys.sort()
+    print(keys)
+    # print(m)
+
+    data=np.zeros((2013-1950+1,12))
+    for i in range(1950,2013+1):
+        for j in range(12):
+            # print(m[j+1][0][0])
+            # print(data[i-1950,j])
+            data[i-1950,j]=m[j+1][i-1950][3]
+    # print(data)
+
+    data=data.reshape(data.shape[0]*data.shape[1],1)
+    # print(data[:24])
+    # plt.figure()
+    # plt.plot(data)
+    # plt.show()
+    # plt.close()
+    return pd.DataFrame(data[:431])
 
 if __name__=="__main__":
     path="./data/co2_mm_mlo.txt"
@@ -79,7 +122,7 @@ if __name__=="__main__":
     plt.plot((TOCEAN.values-0.29*TAVG.values)/0.69,label='海洋温度')
     plt.plot(TAVG,label='陆地温度')
 
-    print(TOCEAN)
+    # print(TOCEAN)
     plt.legend()
     plt.title("1983.7-2019.5陆地海洋温度变化图")
     plt.ylabel("°C")
@@ -90,8 +133,15 @@ if __name__=="__main__":
 
     print(TOCEAN.shape)
 
+    path = "./data/Land_and_Ocean_complete.txt"
+    data = readTxt(path)
+    google = data[1602:-3, 2]
+    google = pd.DataFrame(google)
+    # print(TAVG.values.shape)
 
-    data=pd.concat([co2,ch4,TMAX,TAVG,TMIN,TOCEAN],axis=1)
+    FOSSIL_FUEL = readPaifang()
+
+    data=pd.concat([co2,ch4,TMAX,TAVG,TMIN,TOCEAN,google,FOSSIL_FUEL],axis=1)
     data=data.values
     print(data.shape)
 
@@ -100,9 +150,8 @@ if __name__=="__main__":
 
 
 
-
     df=pd.DataFrame(data)
-    df.columns=['Date','CO2','CH4','TMAX','TAVG','TMIN','TOCEAN']
+    df.columns=['Date','CO2','CH4','TMAX','TAVG','TMIN','TOCEAN','FOSSIL_FUEL','ATTENTATION']
     df.to_csv("data.csv",sep=',',index=None)
 
     from sklearn.preprocessing import LabelEncoder
