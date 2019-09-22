@@ -133,15 +133,18 @@ if __name__=="__main__":
 
     print(TOCEAN.shape)
 
-    path = "./data/Land_and_Ocean_complete.txt"
-    data = readTxt(path)
-    google = data[1602:-3, 2]
-    google = pd.DataFrame(google)
+    path = "./data/google.csv"
+    google = pd.read_csv(path,header=None)
+    # plt.plot(google.values)
+    # plt.show()
+    # print(google)
+    # print(google.shape)
+    # google = pd.DataFrame(google)
     # print(TAVG.values.shape)
 
     FOSSIL_FUEL = readPaifang()
 
-    data=pd.concat([co2,ch4,TMAX,TAVG,TMIN,TOCEAN,google,FOSSIL_FUEL],axis=1)
+    data=pd.concat([co2,ch4,TMAX,TAVG,TMIN,TOCEAN,FOSSIL_FUEL,google],axis=1)
     data=data.values
     print(data.shape)
 

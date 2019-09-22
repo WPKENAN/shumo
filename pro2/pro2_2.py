@@ -17,7 +17,7 @@ def readCsv(path):
     print(data.shape)
 
     df=pd.DataFrame(data)
-    df.to_csv("./data/google.csv")
+    df.to_csv("./data/google.csv",header=None,index=None)
     # plt.plot(data)
     # plt.show()
 
