@@ -165,10 +165,10 @@ def hc(df, Lat_Longs):
 
 
 if __name__ == "__main__":
-    for i in range(1919,2019,50):
+    for i in range(1929,2019,30):
         try:
             start = i
-            end = start+50
+            end = start+30
             # folder="D:\github\Data\shumo\data\data\\day"
             folder = "D:\github\Data\shumo\data\\day"
 
