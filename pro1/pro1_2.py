@@ -166,66 +166,68 @@ def hc(df, Lat_Longs):
 
 if __name__ == "__main__":
     for i in range(1929,2019,30):
-        try:
-            start = i
-            end = start+30
-            # folder="D:\github\Data\shumo\data\data\\day"
-            folder = "D:\github\Data\shumo\data\\day"
 
-            Station_IDs = getStationId(folder, start, end)
-            Station_IDs.sort()
-            print(len(Station_IDs))
-            # print(Station_IDs)
+        start = i
+        end = start+30
+        # folder="D:\github\Data\shumo\data\data\\day"
+        folder = "D:\github\Data\shumo\data\\day"
 
-            dicData = clearData(Station_IDs, start, end, folder)
-            Station_IDs = list(dicData.keys());
-            Station_IDs.sort()
-            # print(len(Station_IDs))
-            # print(Station_IDs)
+        Station_IDs = getStationId(folder, start, end)
+        Station_IDs.sort()
+        print(len(Station_IDs))
+        # print(Station_IDs)
 
-            Lat_Longs = []
-            for id in Station_IDs:
-                print(id)
-                csvlist = os.listdir(os.path.join(folder, str(id)));
-                if len(csvlist) > 0 and ".tmp" not in csvlist[0]:
-                    if id == '1590':
-                        continue
-                    Lat_Longs.append(getLat_Long(os.path.join(folder, str(id), "{}".format(csvlist[0]))))
-            Lat_Longs = np.array(Lat_Longs)
+        dicData = clearData(Station_IDs, start, end, folder)
+        Station_IDs = list(dicData.keys());
+        Station_IDs.sort()
+        # print(len(Station_IDs))
+        # print(Station_IDs)
 
-            dis = np.zeros((len(Station_IDs), len(Station_IDs)))
-            for i in range(len(Station_IDs)):
-                for j in range(i, len(Station_IDs)):
-                    print(i, j)
-                    df1 = dicData[Station_IDs[i]]
-                    df2 = dicData[Station_IDs[j]]
+        Lat_Longs = []
+        for id in Station_IDs:
+            print(id)
+            csvlist = os.listdir(os.path.join(folder, str(id)));
+            if len(csvlist) > 0 and ".tmp" not in csvlist[0]:
+                if id == '1590':
+                    continue
+                Lat_Longs.append(getLat_Long(os.path.join(folder, str(id), "{}".format(csvlist[0]))))
+        Lat_Longs = np.array(Lat_Longs)
 
-                    f = 0
-                    stds = 0;
-                    for k in range(len(features)):
-                        count = pd.concat([df1[df1.columns[k]], df2[df2.columns[k]]], axis=1)
-                        count.dropna(axis=0, how='any', inplace=True)
-                        count = count.values
-                        if len(count) == 0:
-                            std = 0
-                        else:
-                            std = np.sqrt(np.sum((count[:, 0] - count[:, 1]) ** 2) / len(count))
-                            stds += std
-                            f += 1
+        dis = np.zeros((len(Station_IDs), len(Station_IDs)))
+        for i in range(len(Station_IDs)):
+            for j in range(i, len(Station_IDs)):
+                print(i, j)
+                df1 = dicData[Station_IDs[i]]
+                df2 = dicData[Station_IDs[j]]
+
+                f = 0
+                stds = 0;
+                for k in range(len(features)):
+                    count = pd.concat([df1[df1.columns[k]], df2[df2.columns[k]]], axis=1)
+                    count.dropna(axis=0, how='any', inplace=True)
+                    count = count.values
+                    if len(count) == 0:
+                        std = 0
+                    else:
+                        std = np.sqrt(np.sum((count[:, 0] - count[:, 1]) ** 2) / len(count))
+                        stds += std
+                        f += 1
+                if f==0:
+                    dis[i, j] = dis[j, i] = 999
+                else:
                     dis[i, j] = dis[j, i] = stds / f
 
-            dis = pd.DataFrame(dis)
-            dis.columns = Station_IDs;
-            dis.index = Station_IDs
-            dis = dis.fillna(value=0, method=None, axis=None, inplace=False, limit=None, downcast=None)
-            dis.to_csv("{}_{}_经纬度-类别.csv".format(start, end), sep=',', index=False, header=False)
+        dis = pd.DataFrame(dis)
+        dis.columns = Station_IDs;
+        dis.index = Station_IDs
+        dis = dis.fillna(value=0, method=None, axis=None, inplace=False, limit=None, downcast=None)
+        dis.to_csv("{}_{}_经纬度-类别.csv".format(start, end), sep=',', index=False, header=False)
 
-            print("start hc")
-            # hc(newdata, Lat_Longs)
-            # newdata = my(dis, Lat_Longs)
-            hc(dis, Lat_Longs)
-        except:
-            continue
+        print("start hc")
+        # hc(newdata, Lat_Longs)
+        # newdata = my(dis, Lat_Longs)
+        hc(dis, Lat_Longs)
+
 
 
 
