@@ -144,7 +144,17 @@ if __name__=="__main__":
 
     FOSSIL_FUEL = readPaifang()
 
-    data=pd.concat([co2,ch4,TMAX,TAVG,TMIN,TOCEAN,FOSSIL_FUEL,google],axis=1)
+
+
+
+    TOTAL_RAIN=pd.read_csv("./data/percip.csv",header=None);
+
+
+
+
+
+
+    data=pd.concat([co2,ch4,TMAX,TAVG,TMIN,TOCEAN,FOSSIL_FUEL,TOTAL_RAIN,google],axis=1)
     data=data.values
     print(data.shape)
 
@@ -154,7 +164,7 @@ if __name__=="__main__":
 
 
     df=pd.DataFrame(data)
-    df.columns=['Date','CO2','CH4','TMAX','TAVG','TMIN','TOCEAN','FOSSIL_FUEL','ATTENTATION']
+    df.columns=['Date','CO2','CH4','TMAX','TAVG','TMIN','TOCEAN','FOSSIL_FUEL','TOTAL_RAIN','ATTENTATION']
     df.to_csv("data.csv",sep=',',index=None)
 
     from sklearn.preprocessing import LabelEncoder
